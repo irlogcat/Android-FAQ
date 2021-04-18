@@ -1,35 +1,76 @@
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
 object IssueParser {
-    private val jsonFile = File("issues.json")
-
     @JvmStatic
     fun main(args: Array<String>? = null) {
+        val allItems = fetchAllIssues()
+        writeFiles(allItems)
+    }
+
+    private fun parseJson(jsonValue: String): List<Issue> {
         val type = object : TypeToken<List<Issue>>() {}.type
-        GsonBuilder()
+        return GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
             .create()
-            .fromJson<List<Issue>>(jsonFile.reader(), type)
-            .forEachIndexed { index, issue ->
-                val htmlContent = buildString {
-                    appendLine("---")
-                    appendLine("layout: post")
-                    appendLine("title: ${issue.title}")
-                    appendLine("---")
-                    appendLine()
-                    appendLine()
-                    appendLine(issue.body)
-                }
+            .fromJson(jsonValue, type)
+    }
 
-                val date = SimpleDateFormat("yyyy-MM-dd").format(issue.createdAt)
-                File("_posts/${date}-${issue.number}.html")
-                    .writeText(htmlContent)
+    private fun writeFiles(issueList: List<Issue>) {
+        issueList.forEach { issue ->
+            val htmlContent = buildString {
+                appendLine("---")
+                appendLine("layout: post")
+                appendLine("title: ${issue.title}")
+                appendLine("---")
+                appendLine()
+                appendLine()
+                appendLine(issue.body)
             }
+
+            val date = SimpleDateFormat("yyyy-MM-dd").format(issue.createdAt)
+            File("_posts/${date}-${issue.number}.html")
+                .writeText(htmlContent)
+        }
+    }
+
+    private fun fetchAllIssues(): List<Issue> {
+        val httpClient = OkHttpClient.Builder()
+            .addNetworkInterceptor(Interceptor {
+                it.proceed(it.request()).also { response ->
+                    if (response.isSuccessful)
+                        println("Successful ${response.request.url}")
+                    else
+                        println("Error: ${response.code} ${response.message}")
+                }
+            })
+            .build()
+        val sumResponses = mutableListOf<List<Issue>>()
+        do {
+            val nextPage = sumResponses.size + 1
+            val request = Request.Builder()
+                .get()
+                .url("https://api.github.com/repos/irlogcat/android-faq/issues?per_page=100&page=$nextPage")
+                .build()
+            val response = httpClient.newCall(request).execute()
+            when {
+                response.isSuccessful -> {
+                    val pageItems = parseJson(response.body!!.string())
+                    sumResponses.add(pageItems)
+                }
+                else ->
+                    throw RuntimeException(response.message)
+            }
+        } while (sumResponses.lastOrNull()?.isNotEmpty() == true)
+
+        return sumResponses.flatten()
     }
 }
 
