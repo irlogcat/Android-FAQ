@@ -1,6 +1,5 @@
-title: Parchment
-author: pro-panda
-subtitle: The life of a frustrated engineer
+title: Android FAQ
+subtitle: Android - Frequently Asked Question
 
 url: "https://pro-panda.github.io"
 baseurl: "/parchment"
@@ -18,7 +17,5 @@ sass:
     sass_dir: css
 
 navbar:
- - name: "About"
-   link: "about"
- - name: "Resume"
-   absolute-link: "https://pro-panda.github.io/resume.pdf"
+  - name: "Github Repo"
+    absolute-link: "https://github.com/irlogcat/Android-FAQ"
