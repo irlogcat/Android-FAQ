@@ -76,14 +76,16 @@ code {
     .title{
         max-width: 500px;
         color: #272727;
-        display: inline-block;
+        display: table-row;
         font-size: 30px;
+        direction: rtl;
     }
     .details{
         @extend .pull-right;
         text-align: right;
         margin-left: 20px;
         font-size: 15px;
+        display: contents;
     }
     .subtitle{
         max-width: 500px;

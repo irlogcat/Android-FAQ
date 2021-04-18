@@ -13,8 +13,6 @@ layout: default
         </a>
 
         <div class="details">
-            <b>{{ post.date | date: "%d %B %Y" }}</b>
-            <br>
             {% if post.tags %}
                 <b>[</b>
                 {% for tag in post.tags %}
@@ -22,10 +20,6 @@ layout: default
                 {% endfor %}
                 <b>]</b>
             {% endif %}
-        </div>
-
-        <div class="subtitle">
-            {{ post.subtitle }}
         </div>
     </div>
     {% if forloop.last == false %}
