@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="com.beust:klaxon:5.5" type="repository">
+    <properties maven-id="com.beust:klaxon:5.5" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/beust/klaxon/5.5/klaxon-5.5.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.4.31/kotlin-stdlib-1.4.31.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.4.31/kotlin-stdlib-common-1.4.31.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/kotlin/kotlin-reflect/1.4.31/kotlin-reflect-1.4.31.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

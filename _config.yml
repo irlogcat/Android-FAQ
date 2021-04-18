@@ -11,7 +11,7 @@ footer_text: "Theme by pro-panda"
 profile-picture: assets/profile.png
 favicon_location: assets/favicon.ico
 
-permalink: /:year-:month-:day-:title/
+permalink: /:title/
 sass:
     style: compressed
     sass_dir: css
@@ -19,3 +19,9 @@ sass:
 navbar:
   - name: "Github Repo"
     absolute-link: "https://github.com/irlogcat/Android-FAQ"
+
+exclude:
+  - 'parser'
+  - 'out'
+  - 'issues.json'
+  - 'issues-mini.json'
