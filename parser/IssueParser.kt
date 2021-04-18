@@ -29,6 +29,15 @@ object IssueParser {
                 appendLine("---")
                 appendLine("layout: post")
                 appendLine("title: ${issue.title}")
+                if (issue.labels.isNotEmpty()) appendLine(
+                    "tags: ${
+                        issue.labels.joinToString(
+                            prefix = "[",
+                            postfix = "]",
+                            separator = ", "
+                        ) { it.name }
+                    }"
+                )
                 appendLine("---")
                 appendLine()
                 appendLine()
@@ -112,7 +121,7 @@ data class Issue(
     @field:SerializedName("url")
     val url: String,
     @field:SerializedName("labels")
-    val labels: List<Any>,
+    val labels: List<Label>,
     @field:SerializedName("milestone")
     val milestone: Any,
     @field:SerializedName("events_url")
@@ -127,6 +136,23 @@ data class Issue(
     val nodeId: String,
     @field:SerializedName("pull_request")
     val pullRequest: PullRequest
+)
+
+data class Label(
+    @field:SerializedName("id")
+    val id: Long,
+    @field:SerializedName("node_id")
+    val nodeId: String,
+    @field:SerializedName("url")
+    val url: String,
+    @field:SerializedName("name")
+    val name: String,
+    @field:SerializedName("color")
+    val color: String,
+    @field:SerializedName("default")
+    val isDefault: Boolean,
+    @field:SerializedName("description")
+    val description: String,
 )
 
 data class User(
