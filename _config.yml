@@ -2,7 +2,7 @@ title: Android FAQ
 subtitle: Android - Frequently Asked Question
 
 url: "https://pro-panda.github.io"
-baseurl: "/parchment"
+baseurl: ""
 
 footer_only_homepage: true
 footer_url: "https://github.com/pro-panda"
@@ -11,7 +11,7 @@ footer_text: "Theme by pro-panda"
 profile-picture: assets/profile.png
 favicon_location: assets/favicon.ico
 
-permalink: /:title/
+permalink: /issues/:title/
 sass:
     style: compressed
     sass_dir: css
