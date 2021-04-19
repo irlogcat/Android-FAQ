@@ -24,6 +24,11 @@ object IssueParser {
     }
 
     private fun writeFormattedIssuesOnDisk(issueList: List<Issue>) {
+        fun String.removeDivs(): String {
+            return replace("<div dir=\"rtl\">", "")
+                .replace("</div>", "")
+        }
+
         issueList.forEach { issue ->
             val htmlContent = buildString {
                 appendLine("---")
@@ -41,15 +46,15 @@ object IssueParser {
                 appendLine("---")
                 appendLine()
                 appendLine()
-                appendLine(issue.body)
+                appendLine(issue.body?.removeDivs())
                 issue.commentsList?.takeIf { it.isNotEmpty() }?.forEach { comment ->
                     appendLine("<!-- comment #${comment.id} -->")
-                    appendLine(comment.body)
+                    appendLine(comment.body?.removeDivs())
                 }
             }
 
             val date = SimpleDateFormat("yyyy-MM-dd").format(issue.createdAt)
-            File("_posts/${date}-${issue.number}.html")
+            File("_posts/${date}-${issue.number}.md")
                 .writeText(htmlContent)
         }
     }
