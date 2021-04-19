@@ -12,7 +12,7 @@ object IssueParser {
     @JvmStatic
     fun main(args: Array<String>? = null) {
         val allItems = fetchAllIssues()
-        writeFiles(allItems)
+        writeFormattedIssuesOnDisk(allItems)
     }
 
     private fun parseJson(jsonValue: String): List<Issue> {
@@ -23,7 +23,7 @@ object IssueParser {
             .fromJson(jsonValue, type)
     }
 
-    private fun writeFiles(issueList: List<Issue>) {
+    private fun writeFormattedIssuesOnDisk(issueList: List<Issue>) {
         issueList.forEach { issue ->
             val htmlContent = buildString {
                 appendLine("---")
