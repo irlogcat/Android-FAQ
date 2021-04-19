@@ -1,0 +1,13 @@
+---
+layout: post
+title: ‫چه زمانی بدون کال شدن onPause و onStop، اکتیوتی destroy میشه؟
+tags: [answered, component-activity]
+---
+
+
+
+<!-- comment #652685246 -->
+<div dir="rtl">
+زمانی که در onCreate اکتیوتی رو finish() کنیم متد onpause , onstop کال نمیشن و مستقیم ondestroy کال میشه .
+
+دلیلشم خب معلومه دیگه! متد onpause , onstop زمانی کال میشن که نقطه مقابلشون start و resume کال شده باشن 

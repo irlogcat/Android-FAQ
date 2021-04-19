@@ -1,0 +1,32 @@
+---
+layout: post
+title: ‫ دیزاین پترن Builder مثال رایج و کاربردی آن در برنامه ها چیست؟
+tags: [design-pattern]
+---
+
+
+
+<!-- comment #752322535 -->
+فکر کنم مثال رایجی که همیشه ازش استفاده میکنیم همین ساخت AlertDialog باشه:
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
+        alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Toast.makeText(MainActivity.this,"You clicked yes button",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+https://developer.android.com/reference/android/app/AlertDialog.Builder

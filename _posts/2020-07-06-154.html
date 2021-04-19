@@ -1,0 +1,44 @@
+---
+layout: post
+title: ‫ تفاوت throw و throws ؟
+tags: [error]
+---
+
+
+
+<!-- comment #792058980 -->
+<p dir='rtl' align='right'>
+"throw" یک نوع دستوره، و هنگامی استفاده می کنیم که می خوایم یک Exception ای در اون خط رخ بده. ولی "throws" وقتی استفاده می شه که می خوایم بگیم در یک متدی، فلان Exception ای ممکنه رخ بده و در هنگام استفاده از اون متد، اون Exception ها باید هندل بشن و فقط در همینجا استفاده می شه.
+</p>
+<p dir='rtl' align='right'>مثال "throw":
+</p>
+
+```
+public Object requireNonNull(Object obj) {
+  if (obj == null)
+    throw new NullPointerException();
+  return obj;
+}
+```
+<p dir='rtl' align='right'>مثال "throws":</p>
+
+```
+public boolean createNewFile() throws IOException {
+  SecurityManager security = System.getSecurityManager();
+  if (security != null) security.checkWrite(path);
+  if (isInvalid()) {
+   throw new IOException("Invalid file path");
+  }
+  return fs.createFileExclusively(path);
+}
+```
+<p dir='rtl' align='right'>حالا برای استفاده از متد createNewFile()، به این روش عمل می کنیم</p>
+
+```
+try {
+  new File("FilePath").createNewFile();
+} catch(IOException e){
+  // به روش خودتون هندلش کنین، یا این بخش رو خالی بذارین که وقتی این خطا رخ داد، هیچ اتفاقی نیافته
+}
+```
+

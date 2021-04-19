@@ -1,0 +1,27 @@
+---
+layout: post
+title: ‫تفاوت  list  با arrayList ؟
+tags: [general]
+---
+
+
+
+<!-- comment #703893133 -->
+<p dir='rtl' align='right'>
+List یک اینترفیسی هست که کلاس ArrayList اون رو Implement می کنه؛ ولی پیش از اون باید به یک نکته ای اشاره کنم؛ 
+یک نوع برنامه نویسی ای وجود داره، به نام Programming To Interface که بصورت خلاصه، می گه رفتار های کلاس ها رو در قالب Interface تعیین کنیم، و اون هارو تو اون کلاس ها Implement کنیم، و هر جایی که به پیاده سازی ای از این کلاس ها نیاز داشتیم، از همین اینترفیس ها استفاده کنیم.
+</p>
+<p dir='rtl' align='right'>
+حالا بریم سر پرسش اصلی، چرا باید به جای ArrayList، از List ها استفاده کنیم؟
+</p>
+<p dir='rtl' align='right'>
+در کل پیاده سازی های متفاوتی از List وجود داره مثل LinkedList و Stack، و اگه از اینترفیس List، بجای خود کلاس پیاده سازی شده بطور مستقیم استفاده کنیم، انعطاف پذیری کدمون رو بالاتر می بریم.
+برای نمونه، فکر کنین که یه اینترفیس داریم، که نوع برگشتی یکی از متد های اون List هست؛ حالا هر کسی که بخواد از اون متد استفاده کنه، می تونه بسته به نیازش اونو تو پیاده سازی مورد نظرش داشته باشه.
+پس در نتیجه، این کار بیشتر برای رعایت اصول برنامه نویسی و قوانین شی گراییه.
+برای مطالعه بیشتر، لینک های زیر توصیه می شن:
+</p>
+
+[Programming To Interface](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj7zuy0rp7sAhVfQRUIHRr4ABwQFjACegQIAhAC&url=https%3A%2F%2Fmedium.com%2Fjavarevisited%2Foop-good-practices-coding-to-the-interface-baea84fd60d3%23%3A~%3Atext%3DCoding%2520to%2520interfaces%2520is%2520a%2Cactual%2520class%2520with%2520the%2520implementation.&usg=AOvVaw1qGgElnEs7s0hzgnHjKoR6)
+[Why List as ArrayList (1)](https://stackoverflow.com/a/18329335/5780236)
+[Why List as ArrayList (2)](https://stackoverflow.com/a/9854270/5780236)
+

@@ -1,0 +1,19 @@
+---
+layout: post
+title: ‫ تفاوت api و implemention   در دپندنسی های گردل چیست ؟
+tags: [answered, gradle]
+---
+
+
+
+<!-- comment #654055975 -->
+<p dir='rtl' align='right'>با فرض داشتن این سه ماژول که به هم وابستگی دارند (هم جهت  فلش):</p>
+
+A -> B -> C
+
+<p dir='rtl' align='right'>
+اگر ماژول B برای تعریف دیپندنسی به C از api استفاده کنه ماژول A هم به C دسترسی خواهد داشت</p>
+
+<p dir='rtl' align='right'>ولی اگر ماژول B با implementation ماژول C رو اضافه کند ماژول A نمی تواند C را ببیند</p>
+
+<p dir='rtl' align='right'>به ماژول C در اینجا transitive dependency هم می گویند (نیازمندی متعدی)</p>

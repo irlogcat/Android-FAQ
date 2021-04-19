@@ -1,0 +1,49 @@
+---
+layout: post
+title: ‫ دیزاین پترن Singleton مثال رایج و کاربردی آن در برنامه ها چیست؟
+tags: [design-pattern]
+---
+
+
+
+<!-- comment #792055965 -->
+<p dir='rtl' align='right'>
+یکی از رایج ترین مثال های اون، گرفتن انواع Instance های مختلف از کلاس ها با متد getInstance هست که می خوایم در تمام نرم افزار فقط یک نسخه از اون وجود داشته باشه، برای نمونه گرفتن Instance کلاس RoomDatabase
+</p>
+<p dir='rtl' align='right'>
+(برای سادگی و درک بهتر، synchronization و Lock کردن حذف شدن.)
+</p>
+
+```
+public abstract class MyRoomDatabase extends RoomDatabase {
+
+  private static MyRoomDatabase sInstance;
+
+  public static MyRoomDatabase getInstance(Context context) {
+    if (sInstance == null) {
+      sInstance = Room.databaseBuilder(context.getApplicationContext(), MyRoomDatabase.class, "MyDb.db").build(); // یا هر Initilization ی دیگه ای
+    }
+    return sInstance;
+  }
+}
+```
+<p dir='rtl' align='right'>
+یک مثال دیگه، گرفتن یک نسخه از کلاس Application نرم افزاره:
+</p>
+
+```
+public class MyApp extends Application {
+
+  private static MyApp sInstance;
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    sInstance = this;
+  }
+	
+  public static MyApp getInstance() {
+    return sInstance;
+  }
+}
+```

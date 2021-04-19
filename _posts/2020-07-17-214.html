@@ -1,0 +1,50 @@
+---
+layout: post
+title: ‫تفاوت getFragmentManager  و getSupportFragmentManager ؟
+tags: [answered, component-fragment]
+---
+
+
+
+<!-- comment #663903997 -->
+<div dir="rtl">
+هر دوتاشون یکی نیستن؟
+<!-- comment #664418647 -->
+<div dir="rtl"/>
+> هر دوتاشون یکی نیستن؟
+سوالشو اشتباه نوشته بودم :) @HajAhmad 
+
+<!-- comment #664421722 -->
+<div dir="rtl"/>
+در واقع getFragmentManager و getSupportFragmentManager  هردو یکی هستن و بهمون یک اینستنس از fragmentManager رو میده .
+اما اگر در اکتیوتی بخواهیم به یک نمونه از فرگمنت منیجر دسترسی داشته باشیم باید از متد getSupportFragmentManager   استفاده کنیم . 
+و اگر بخواهیم در کلاس فرگمنتمون به فرگمنت منیجر دسترسی داشته باشیم باید از getFragmentManager  استفاده کنیم.
+
+نکته : متد getSupportFragmentManager   در کلاس FragmentActivity قرار داره که AppCompatActivity اون رو اکستند کرده .
+نکته : متد getFragmentManager  در کلاس Fragment قرار داره ک فرگمنتهامون این کلاس رو اکستند کردن .
+<!-- comment #669056297 -->
+> در واقع getFragmentManager و getSupportFragmentManager هردو یکی هستن و بهمون یک اینستنس از fragmentManager رو میده . اما اگر در اکتیوتی بخواهیم به یک نمونه از فرگمنت منیجر دسترسی داشته باشیم باید از متد getSupportFragmentManager استفاده کنیم . و اگر بخواهیم در کلاس فرگمنتمون به فرگمنت منیجر دسترسی داشته باشیم باید از getFragmentManager استفاده کنیم.
+> نکته : متد getSupportFragmentManager در کلاس FragmentActivity قرار داره که AppCompatActivity اون رو اکستند کرده .
+> نکته : متد getFragmentManager در کلاس Fragment قرار داره ک فرگمنتهامون این کلاس رو اکستند کردن .
+
+<div dir="rtl"> از اسم هر دو پیداست. اگر ما از api لول 14 به بالا استفاده کنیم نیازی به support نداریم و اگر از پایین تر استفاده کنیم از support استفاده می کنیم
+<!-- comment #703865923 -->
+> > در واقع getFragmentManager و getSupportFragmentManager هردو یکی هستن و بهمون یک اینستنس از fragmentManager رو میده . اما اگر در اکتیوتی بخواهیم به یک نمونه از فرگمنت منیجر دسترسی داشته باشیم باید از متد getSupportFragmentManager استفاده کنیم . و اگر بخواهیم در کلاس فرگمنتمون به فرگمنت منیجر دسترسی داشته باشیم باید از getFragmentManager استفاده کنیم.
+> > نکته : متد getSupportFragmentManager در کلاس FragmentActivity قرار داره که AppCompatActivity اون رو اکستند کرده .
+> > نکته : متد getFragmentManager در کلاس Fragment قرار داره ک فرگمنتهامون این کلاس رو اکستند کردن .
+> 
+> از اسم هر دو پیداست. اگر ما از api لول 14 به بالا استفاده کنیم نیازی به support نداریم و اگر از پایین تر استفاده کنیم از support استفاده می کنیم
+
+<p dir='rtl' align='right'>
+البته اگر در باطن نگاه کنیم بله فرمایش شما درسته، ولی در کل همه جا تاکید می شه که از Support استفاده کنیم؛ حتی تو خود مثال های گوگل ویرایش Support رو بیشتر می بینم. برای همین از اونجایی که معمولاً استفاده از Support بدون ضرره، برای همین از اون استفاده بشه خیلی بهتره.(البته در بعضی موارد کم استثنا هم دیده شده)
+</p>
+<!-- comment #723660614 -->
+<div dir="rtl">
+فکر کنم منظورتون اشاره ب ایمپورت های کلاس فرگمنت باشه نه استفاده ی این دوتا !
+<!-- comment #723662150 -->
+<div dir="rtl">
+@FatemehKavoosi 
+
+البته اینو بگم که، وقتی که پروژه ای، از AndroidX استفاده می کنه، دیگه نیازی به استفاده از SupportLibrary نداره(اگر هم بخواد امکانش نیست). و از اونجایی که خیلی وقته پروژه های اندروید بصورت پیشفرض، کتابخونه های AndroidX رو ایمپورت و استفاده می کنن، فرگمنت از  کتابخونه های AndroidX  ایمپورت میشه، برای همین این مشکل به نوعی حل شدست.
+
+

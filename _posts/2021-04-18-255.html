@@ -1,0 +1,75 @@
+---
+layout: post
+title: ‫منظور از call by value و call by reference در جاوا چیست؟
+---
+
+
+<div dir="rtl"> 
+منظور از call by value این است که پارامتری که به یک متد پاس میدهیم درواقع یک مقدار (value) باشد. و call by reference هم یعنی این پارامتر رفرنس یک آبجکت باشد.
+
+در call by value چون خود مقدار را پاس میدهیم پس تغییر دادن آن تاثیری در متغیر مبدا نمیگذارد چون هیچ ارتباطی به متغیر پاس داده شده ندارد. اما در call by reference تغییری که ما روی پارامتر ایجاد میکنیم چون به متغیر اصلی اشاره دارد، آن را تغییر میدهد.
+
+برای فهم بهتر مثال بزنیم:
+</div>
+
+```java
+class Test {
+    public static void main(String[] args) {
+        int original = 1;
+        System.out.println(original); // 1
+        doSth(original);
+        System.out.println(original); // 1
+    }
+
+    static void doSth(int param) {
+        param = 12;
+    }
+}
+```
+
+<div dir="rtl"> 
+پس call by reference چی؟
+
+جاوا فقط call by value را ساپورت میکنه.
+
+پس وقتی یک آبجکت پاس میدیم چی میشه؟ مگه اون call by reference نیست؟
+
+پاسخ کوتاهش منفیه
+</div>
+
+```java
+class Test {
+    public static void main(String[] args) {
+        Person original = new Person();
+        original.id = 1;
+        System.out.println(original.id); // 1
+        doSth(original);
+        System.out.println(original.id); // 1
+    }
+
+    private static void doSth(Person param) {
+        param = new Person();
+        param.id = 2;
+    }
+}
+
+class Person {
+    int id;
+}
+```
+
+<div dir="rtl"> 
+اما جواب بلند:
+
+فکر کنم اینکه که وقتی آبجکت original رو به متد doSth پاس میدیم، داریم رفرنسش رو پاس میدیم برای همه بدیهی باشه. اما نکته اینه که چون جاوا call by value عه، داره خود رفرنس رو کپی میکنه و پاس میده.
+
+اگر به مبحث اشاره‌گرهای cpp آشنایی داشته باشید، انگاری توی اینجا داره یک اشاره‌گر دیگه میسازه و اونو پاس میده.
+
+حالا تا وقتی که این اشاره‌گر جدید (همون رفرنسی که بعنوان پارامتر دریافت شده) به آبجکت original اشاره کنه پس تغییرات ماهم روی original انجام میشه.
+
+اما توی مثال بالا ما داریم رفرنسش رو تغییر میدیم تا به یک آبجکت جدید اشاره کنه. پس تغییرات بعدیمون هم روی آبجکت جدید اعمال میشه. و دیگه ارتباطی با original وجود نداره که بخواد تغییرش بده
+</div>
+
+
+[منبع](https://www.tutorialspoint.com/Call-by-value-and-Call-by-reference-in-Java)
+مرتبط با #96 

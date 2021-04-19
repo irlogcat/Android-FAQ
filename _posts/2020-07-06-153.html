@@ -1,0 +1,26 @@
+---
+layout: post
+title: ‫چطور می توان متوجه شد یک ویو در ریسایکلر از صفحه خارج شده؟  unAttach شده ؟
+tags: [answered, list-recycler]
+---
+
+
+
+<!-- comment #655690912 -->
+<div dir="rtl">
+<p>داخل کلاس آداپتر ریسایکلرویو میتونید دو متد زیر رو override کنید وزمانی که ویو وارد صفحه شد یا ار صفحه خارج شد استفاده کنید.</p>
+</div>
+
+```
+@Override
+public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+    super.onViewAttachedToWindow(holder);
+        // Start or Resume your Job
+}
+
+@Override
+public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
+    super.onViewDetachedFromWindow(holder);
+        // Stop or pause your job
+}
+```

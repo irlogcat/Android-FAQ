@@ -1,0 +1,121 @@
+---
+layout: post
+title: ‫تفاوتSingleLiveData و MutableLiveData و MediatorLiveData و Transformations ؟
+tags: [answered, architecture]
+---
+
+
+
+<!-- comment #654446391 -->
+<div dir="rtl" >
+ابتدا در این کامنت به MutableLiveData و MediatorLiveData بپردازیم
+
+در ابتدا بگیم که MutableLiveData از LiveData ارث‌بری میکنه و MediatorLiveData هم از MutableLiveData ارث‌بری میکنه.
+
+در اصل هدف این است که ما بتونیم توسط یک لایودیتا تغییرات مقادیر چند لایودیتا را Observe کنیم
+برای این کار نیاز داریم که چند لایودیتا را در یک لایودیتا مرج کنیم و ازشون استفاده کنیم که اگر بخوایم همچین کدی رو به راحتی میتونیم به صورت دستی بنویسیم.
+کلاس MediatorLiveData دو تابع پابلیک در اختیار ما میگذاره با نام‌های addSource و removeSource. این توابع رو با هم بررسی میکنیم:
+
+تابع addSource دو پارامتر ورودی از ما میخواهد که اولی مربوط به LiveData ای است که نیاز داریم تغییرات مقادیر آن را متوجه بشویم و پارامتر دوم Observer است که در این پارامتر میتونیم با معرفی کردن یک Observer تغییرات مقادیر رو متوجه بشیم و توی متد OnChange از آن مقادیر استفاده نماییم.
+
+تابه removeSource هم همانظور که از اسمش پیداست برای حذف کردن یک آبجکت LiveData از لیست LiveDataهایی که مقادیرشون توسط آبجکت MediatorLiveData اطلاع رسانی میشن به کار می‌رود
+
+کد زیر میتونه مثال خوبی در این باره باشه:
+
+<div dir="ltr" >
+
+```java
+MediatorLiveData<String> mediatorLiveData = new MediatorLiveData<String>();
+
+public MutableLiveData<String> liveData1 = new  MutableLiveData<String>();
+public MutableLiveData<String> liveData2 = new  MutableLiveData<String>();
+
+mediatorLiveData.addSource(liveData1,
+    new Observer<String>() {
+        @Override
+        public void onChanged(String s) {
+            mediatorLiveData.setValue(s + " - emission from observer of liveData1");
+        }
+    }
+);
+mediatorLiveData.addSource(liveData2,
+    new Observer<String>() {
+        @Override
+        public void onChanged(String s) {
+            mediatorLiveData.setValue(s + " - emission from observer of liveData2");
+        }
+    }
+)
+
+mediatorLiveData.observe(this, new Observer<String>() {
+    @Override
+    public void onChanged(String s) {
+        Toast.makeText(context, s , Toast.LENGTH_SHORT).show();
+    }
+});
+
+liveData1.postValue("hello")    // output : hello - emission from observer of liveData1
+liveData2.postValue("world")    // output : world - emission from observer of liveData2
+```
+<!-- comment #654456026 -->
+<div dir="rtl">
+حالا توی این کامنت در مورد کاربرد SingleLiveData صحبت میکنیم
+
+در ابتدا بگیم که کلاس SingleLiveData جز کتابخانه کامپوننت های معماری اندروید نیست و بعدا اضافه شده، ولی چون حرکت ابتکاری ریزی بود نخواستن به کتابخونه اصلی اضافه‌اش کنن
+
+کلاس SingleLiveEvent در اصل از کلاس MutableLiveData ارث‌بری میکنه و یک مشکل رو حل میکنه
+مشکل تغییر مداوم مقادیر.
+
+به عنوان مثال اگر میخواستیم از MutableLiveData برای اطلاع‌رسانی رویدادها استفاده کنیم (که آنتی‌پترن هست حدالامکان این کار رو نکنید.) ممکن بود که چندین بار به صورت پشت سر هم اطلاعات ارسال بشن و این باعث میشه به عنوان مثال SnackBar یا Toast ما چندین بار پشت سر هم ظاهر باشه.
+
+حال کلاسی به نام SingleLiveEvent در این سناریو استفاده میشه که باعث میشه فقط یک بار مقادیر به Observer نوتیفای بشن و از این مورد مطمئن باشیم.
+
+استفاده از اون هم مشابه استفاده از MutableLiveData هست
+
+دوستان اگر اشتباهی در جواب‌هایی که دادم وجود داره لطف کنید اصلاح کنید این اولین جوابی بود که به این سری سوالات میدادم، اگر اشتباهی داشتم عذر میخوام.
+<!-- comment #655422283 -->
+<div dir="rtl">
+<p>درزیر کلاس SingleLiveData رو آوردم. چون این کلاس در کتابخونه نیست و تو سایت های مختلف پیاده سازی های مختلف هست. از این پیاده سازی برای Single بود ایونت ها میتونید استفاده کنید.</p>
+</div>
+
+```
+class SingleLiveData<T> : MutableLiveData<T>() {
+    private val mPending: AtomicBoolean = AtomicBoolean(false)
+
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
+        super.observe(owner, Observer<T> {
+            if (mPending.compareAndSet(true, false)) {
+                observer.onChanged(it)
+            }
+        })
+    }
+
+    @MainThread
+    override fun setValue(t: T?) {
+        mPending.set(true)
+        super.setValue(t)
+    }
+
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @MainThread
+    fun call() {
+        value = null;
+    }
+}
+
+```
+<!-- comment #655581469 -->
+<div dir="rtl">
+ 
+ی مثالی از استفاده singleLiveData بزنم  :
+فرض کنید توی فرگمنت یک لایودیتای بولین رو ابزور میکنید و براساس شرایطی اون true میشه و از اون طرف observe میکنید که هروقت true شد به فرگمنت دیگه برید ! 
+خب در اینجا کاری که خواستید انجام میشه و بعد true کردن لایودیتا ، شما به صفحه ی بعد میرید ! 
+اما وقتی بک میزنید وبه صفحه قبلی برمیگردید دوباره اون observeتون تریگر میشه و مجدد چون مقدار true هست دوباره به صفحه بعد 
+هدایت میشید .و بنابراین هیج موقع نمیتونید به صفحه قبل برگردید .
+
+خب برای حل این مشکل میتونید به جا MutableLiveData از SingleLiveData استفاد ه کنید .اینطوری بعد یک بار consumed شدن دیگه نوتیف نمیشه.
+
+البته با تو این مثال اومده از ی wrapper  هم استفاده کرده بر حل این مشکل : 
+https://medium.com/androiddevelopers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150

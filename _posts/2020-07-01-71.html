@@ -1,0 +1,19 @@
+---
+layout: post
+title: روش های پردازش متن رو معرفی کنید ؟
+tags: [answered]
+---
+
+
+بهترین راه برای خواندن متن از یک کاغذ چی هست؟
+ایا فقط کلاینت اندروید کافی هست یا سرور هم باید باشه؟
+تجربه خودتون تو ocr چی بوده؟
+<!-- comment #652308555 -->
+<p dir="rtl">پردازش های تصویر مثل Text recognition, Face detecting, Barcode Detecting و .... به لطف mlkit فایربیس ساده شده و خودش پردازش میکنه.</p>
+<p dir="rtl">برای پردازش متن داخل دستگاه:&nbsp;&nbsp;<a href="https://developers.google.com/ml-kit/vision/text-recognition">https://developers.google.com/ml-kit/vision/text-recognition</a></p>
+<p dir="rtl">برای پردازش متن سمت وب فایربیس:&nbsp;<a href="https://firebase.google.com/docs/ml/recognize-text">https://firebase.google.com/docs/ml/recognize-text</a></p>
+<p dir="rtl">روی دیوایس فقط متن های لاتین رو میتونه تشخیص بده ولی سمت پبش بیشتر از ۱۰۰ زبان رو پشتیبانی میکنه که خوشبختانه فارسی هم داره</p>
+<p dir="rtl">لینک زبان ها:&nbsp;<a href="https://cloud.google.com/vision/docs/languages">https://cloud.google.com/vision/docs/languages</a></p>
+<p dir="rtl">فقط احتمالا به مشکل استفاده از دوربین برخورد کنی که چه SDK برای دوربین باید استفاده کنی و چجوری. تو گیتهاب خودم یک ریپو گذاشتم که اون تو Camerax و Mlkit با هم برای تشخیص Qrcode استفاده شدن. میتونید ازش استفاده کنید و جای Barcode detection از Text recognition استفاده کنید&nbsp;</p>
+<p dir="rtl">لینک BarcodeX گیتهاب:&nbsp;&nbsp;<a href="https://github.com/rvhamed/BarcodeX">https://github.com/rvhamed/BarcodeX</a></p>
+<p dir="rtl">(برای Barcode detection میتونی از این ریپو به عنوان ماژول هم استفاده کنی ولی شاید نیاز باشه کمی روش کار شه. چون فرصت نکردم درست حسابی کتابخونش کنم و آموزشی برای استفاده ازش بزارم)</p>

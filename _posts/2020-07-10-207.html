@@ -1,0 +1,59 @@
+---
+layout: post
+title: ‫مرج Merg لیوت چیست ؟ 
+tags: [answered, layout - ui - view]
+---
+
+
+
+<!-- comment #657175204 -->
+<div dir="rtl">
+<p>اگه منظورتون تگ&nbsp;&lt;merge/&gt; در xml هست، این تگ کمک میکنه تا ViewGroupd های اضافی حذف بشن و hierarchy ویومون زیاد نشه.</p>
+<p>برای مثال اینطوری در نظر بگیرید که دو لایه داریم. و قرار دومی رو با include وارد اولی کنیم.&nbsp;</p>
+<p>&nbsp;</p>
+<p>لایه اول</p>
+</div>
+
+```
+<FrameLayout>
+   <include layout="@layout/layout2"/>
+</FrameLayout>
+```
+
+<p dir="rtl">لایه دوم بدون m‍erge</p>
+
+```
+<FrameLayout>
+   <TextView />
+   <TextView />
+</FrameLayout>
+```
+
+<p dir="rtl">خروجی</p>
+
+```
+<FrameLayout>
+   <FrameLayout>
+      <TextView />
+      <TextView />
+   </FrameLayout>
+</FrameLayout>
+```
+<p dir="rtl">&nbsp;حالا باییم از merge استفاده کنیم&nbsp; تا بتونیم ViewGroup اضافی و تکراری رو حذف کنیم.&nbsp;</p>
+<p dir="rtl">لایه دوم با merge</p>
+
+```
+<merge>
+   <TextView />
+   <TextView />
+</merge>
+```
+
+<p dir="rtl">خروجی</p>
+
+```
+<FrameLayout>
+   <TextView />
+   <TextView />
+</FrameLayout>
+```

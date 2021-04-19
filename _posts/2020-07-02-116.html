@@ -1,0 +1,21 @@
+---
+layout: post
+title: ‫file provider چیست؟ و دلیل استفاده از آن؟
+tags: [answered, component-contentProvider]
+---
+
+
+
+<!-- comment #657028562 -->
+<p dir=rtl>
+جواب کمی اولیه، از نظر برنامه‌نویس File Provider مثلاً اینو
+
+`file:///storage/emulated/0/Android/data/com.example.packagename/cache/file.ext`
+
+<p dir=rtl>
+به این تبدیل می‌کنه
+
+`content://com.example.packagename/external_files/Android/data/com.example.packagename/cache/file.ext`
+
+<p dir=rtl>
+حالت اول رو نمی‌شه برنامه‌های دیگه استفاده کنن (حالا تو این مورد می‌شه خوند به شرط اینکه دسترسی خوندن کارت گرفته شده باشه) ولی حالت دوم اصلاً برای همین اشتراک‌گذاشتن بین برنامه‌هاس و یه سری گزینه می‌ذاره برای قابل خوندن و حتی قابل نوشتن بودن فایل، حالت اول اگه تو intent گذاشته بشه اندروید جلوشو می‌گیره و طبیعتاً تبدیل به دومی نباید دستی انجام شه

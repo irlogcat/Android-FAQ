@@ -1,0 +1,26 @@
+---
+layout: post
+title: What is reified keyword in kotlin generics
+tags: [answered]
+---
+
+
+
+<!-- comment #649637695 -->
+Because generic types are only accessable at compile time and will erase in runtime, when you need use for example: `T` generic type in runtime you should use `reified`.
+<!-- comment #650431001 -->
+@mreram 
+یه مثال کوچولو از اینکه چرا موقع ران‌تایم نیاز به جنریک داریم میزنی؟ بنظرم جواب خیلی کاملتر میشه
+
+بعد با اجازت من این ایشو رو باز میکنم شاید باز کس دیگه هم نظر داشت. یکی دو روز کسی نظری نداد بعد میبندیمش. اینجوری بهتره
+<!-- comment #650694914 -->
+For example, we need to create an instance from a generic type:
+```
+inline fun <reified T : BaseFragment> pushFragment() {
+        val fragment = T::class.java.newInstance()
+}
+```
+
+> your method must be `inline` and your generic type must be `reified` because compiler must copies the function's bytecode to every place where the function is being used
+<!-- comment #650736001 -->
+جالب بود دستت درد نکنه

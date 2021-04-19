@@ -1,0 +1,41 @@
+---
+layout: post
+title: ‫تفاوت commit ، commitAllowingStateLoss ، commitNow در عملیات ترنزکشن فرگمنت ؟
+tags: [answered, component-fragment]
+---
+
+
+
+<!-- comment #664792770 -->
+<div dir="rtl">
+<p>برای <strong>Fragment Transaction</strong> ها چهار راه وجود دارد:</p>
+<ul dir="ltr">
+<li>commit()</li>
+<li>commitAllowingStateLoss()</li>
+<li>commitNow()</li>
+<li>commitNowAllowingStateLoss()</li>
+</ul>
+<p><strong>خود commit چی هست؟؟؟</strong></p>
+<p>commit ترنسکشن رو برنامه ریزی و زمان بندی میکنه تا در زمان بعدی که MainThread آماده بود این ترنسکشن انجام بشه.</p>
+<p><strong>بیایید ببینیم تفاوت commit و commitAllowingStateLoss چیست؟</strong></p>
+<p>حالا فرض کنید یک اکتیویتی داریم که FragmentA رو داره. یک کالبکی هم هست که FragmentB رو قرار commit کنه. دکمه home رو میزنیم و onStop اکتیویتی صدا زده میشه و اکتیویتی به بکگراند میره. بعد از رفتن به بک گراند کالبک اجرا میشه و FragmentB:</p>
+<p><strong>commit میشه:</strong></p>
+<p>با stop شدن اکتیویتی onSavedInstanceState صدا زده میشه. با commit شدن خطای IllegalStateException شوت :) میشه وسط صفحه. چرا؟ چون state اکتیویتی save شده و نمیتونیم commit کنیم!</p>
+<p><strong>commitAllowingStateLoss میشه:</strong></p>
+<p>با استفاده از&nbsp;commitAllowingStateLoss به اکتیویتی میگیم اوکی، نخواستیم استیتت برای خودت. خب بنظرتون وقتی مموری کم بیاره و اکتیویتی رو تو بک گراند از بین ببره چی میشه؟ درسته، وقتی مجدد اپ رو باز می کنیم چون state ذخیره نشده FragmentB دیگه نمایش داده نمیشه و FragmentA نمایش داده میشه. ولی اگه اکتیویتی توسط مموری از بین نره هنگام باز شدن مجدد اپ FragmentB نمایش داده میشه.</p>
+<p>&nbsp;</p>
+<p><em>خیلی ساده و راحت :)</em></p>
+<p><strong>حالا اگه گفتید تفاوت commitNow با commit چیه؟</strong></p>
+<p>commit که گفتیم زمان بندی می کنه و وقتی MainThread اوکی بود ترنسکشن رو انجام میده ولی commitNow بصورت همزمان انجام میده و فورا میخواد ترنسکشن رو انجام بده. قبلا بجای commitNow از&nbsp;executePendingTransactions<em class="jw">&nbsp;</em>استفاده میشد. ولی از نسخه ۲۴ کتابخونه support به بعد commitNow اضافه شد تا از این استفاده کنیم. اول commit میشد بعد&nbsp;executePendingTransactions صدا زده میشد.</p>
+<p><strong>نکته خیلی مهم</strong> اینکه اگه فرگمنت قرار به backStack اضافه بشه از commitNow استفاده نکنید.&nbsp;</p>
+<p><strong>این سناریو رو در نظر بگیرید:</strong> FragmentA رو commit میکنیم و به back-stack اضافه می کنیم. بعد FragmentB رو commitNow می کنیم. و به back-stack اضافه می کنیم. خب ترنسکشن FragmentA که زمان بندی شد تا سر زمانش انجام بشه ولی FragmentB بصورت Sync انجام میشه! یعنی فورا اجرا میشه و حتی قبل اینکه FragmentA ترنسکشنش رو انجام بده FragmentB میاد ترنسکنش رو انجام میده. اینجا ترتیب قرار گیریشون تو back-stack چجوری میشه؟؟؟ پس بهتره استفاده نکنیم :)</p>
+
+![A](https://user-images.githubusercontent.com/29680697/88624415-2c119400-d0bc-11ea-94d7-2ee0ed5da527.png)
+
+<p>popBackStack و&nbsp;&nbsp;popBackStackImmediate هم مثل commit و commitNow هستند. اولی Async هست و دومی هم که Sync.</p>
+<p>اگه میخوایید چند ترنسکشن همزمان در یک نقطه زمانی انجام بشن از&nbsp;executePendingTransactions استفاده کنید.</p>
+<p>اگه جاییش سوتی دادم لطفا راهنمایی کنید.&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
