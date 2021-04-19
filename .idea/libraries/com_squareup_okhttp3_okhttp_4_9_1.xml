@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="com.squareup.okhttp3:okhttp:4.9.1" type="repository">
+    <properties maven-id="com.squareup.okhttp3:okhttp:4.9.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/squareup/okhttp3/okhttp/4.9.1/okhttp-4.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/com/squareup/okio/okio/2.8.0/okio-2.8.0.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.4.0/kotlin-stdlib-common-1.4.0.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.4.10/kotlin-stdlib-1.4.10.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
