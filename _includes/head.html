@@ -1,0 +1,35 @@
+<head>
+    {% if page.title %}
+        {% assign title = page.title | append: " - " | append: site.title %}
+        {% assign desc = page.subtitle %}
+    {% else %}
+        {% assign title = site.title %}
+        {% assign desc = site.subtitle %}
+    {% endif %}
+    {% assign sitedir = site.url | append: site.baseurl | append: "/" %}
+    {% assign favicon_location = sitedir | append: site.favicon_location %}
+
+    <title>{{ title }}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, {{ site.author }}, {{ site.title }}, jekyll">
+    <meta name="author" content="{{ site.author }}">
+
+    <meta name="description" content="{{ desc }}">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ sitedir }}css/main.css">
+    <link rel="icon" type="image/ico" href="{{ favicon_location }}">
+    <link rel="shortcut-icon" type="image/ico" href="{{ favicon_location }}">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:image" itemprop="image" content="{{ favicon_location }}" />
+    <meta property="og:description" content="{{ desc }}" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ title }}" />
+    <meta name="twitter:description" content="{{ desc }}" />
+    <meta name="twitter:image" content="{{ favicon_location }}" />
+</head>
